@@ -1,0 +1,21 @@
+project:
+  name: prometheus-example
+  tags:
+    - prometheus
+services:
+  - hostname: sharedstorage0
+    type: shared-storage
+    mode: NON_HA
+    priority: 20
+  - hostname: prometheus
+    type: go@1
+    priority: 10
+    ports:
+      - port: 9090
+        httpSupport: true
+    buildFromGit: https://github.com/zeropsio/recipe-prometheus
+    enableSubdomainAccess: false
+    minContainers: 1
+    maxContainers: 1
+    mount:
+      - sharedstorage0

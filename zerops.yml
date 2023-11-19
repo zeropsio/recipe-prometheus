@@ -1,0 +1,19 @@
+prometheus:
+  build:
+   
+    base: 
+      - go@1
+    build:
+      - echo `date`
+    deploy: [.]
+  run:
+    prepare:
+        - sudo apt-get -y update
+        - sudo apt-get -y install prometheus
+        - sudo systemctl enable prometheus.service
+    init:
+      - sudo chmod 777 /mnt/sharedstorage0/
+      - sudo yes | cp /var/www/prometheus.service /etc/systemd/system/multi-user.target.wants/
+      - sudo systemctl daemon-reload
+      - sudo service prometheus restart
+    start: /var/www/run.sh
