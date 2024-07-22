@@ -10,8 +10,4 @@ zerops:
       prepareCommands:
         - sudo apk update
         - sudo apk add prometheus
-        - sudo rc-update add prometheus
-      initCommands:
-        #- sudo chmod +x /var/www/run.sh
-        - sudo rc-service prometheus restart
-      #start: /var/www/run.sh
+      start: sudo /usr/bin/prometheus --config.file /etc/prometheus/prometheus.yml
