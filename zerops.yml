@@ -12,5 +12,6 @@ zerops:
         - sudo apk add prometheus
         - sudo rc-update add prometheus
       initCommands:
+        - sudo chmod +x /var/www/run.sh
         - sudo rc-service prometheus restart
       start: /var/www/run.sh
