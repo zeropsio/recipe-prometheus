@@ -14,4 +14,4 @@ zerops:
       initCommands:
         - sudo chmod +x /var/www/run.sh
         - sudo rc-service prometheus restart
-      start: /var/www/run.sh
+      #start: /var/www/run.sh
