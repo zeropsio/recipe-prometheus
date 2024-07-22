@@ -1,7 +1,7 @@
 zerops:
   - setup: prometheus
     build:
-      deployFiles: [run.sh]
+      deployFiles: [.]
     run:
       base: go@1
       ports:
@@ -12,6 +12,6 @@ zerops:
         - sudo apk add prometheus
         - sudo rc-update add prometheus
       initCommands:
-        - sudo chmod +x /var/www/run.sh
+        #- sudo chmod +x /var/www/run.sh
         - sudo rc-service prometheus restart
       #start: /var/www/run.sh
