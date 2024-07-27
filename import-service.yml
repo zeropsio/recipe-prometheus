@@ -3,5 +3,3 @@ services:
     type: go@1.22
     buildFromGit: https://github.com/zeropsio/recipe-prometheus
     enableSubdomainAccess: true
-    minContainers: 1
-    maxContainers: 1
