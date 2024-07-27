@@ -5,11 +5,5 @@ project:
 services:
   - hostname: prometheus
     type: go@1
-    priority: 10
-    ports:
-      - port: 9090
-        httpSupport: true
     buildFromGit: https://github.com/zeropsio/recipe-prometheus
-    enableSubdomainAccess: false
-    minContainers: 1
-    maxContainers: 1
+    enableSubdomainAccess: true
