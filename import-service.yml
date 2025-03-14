@@ -1,5 +1,0 @@
-services:
-  - hostname: prometheus
-    type: go@1.22
-    buildFromGit: https://github.com/zeropsio/recipe-prometheus
-    enableSubdomainAccess: true

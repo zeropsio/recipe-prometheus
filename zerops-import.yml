@@ -1,0 +1,21 @@
+project:
+  name: recipe-prometheus
+  tags:
+    - zerops-recipe
+services:
+  - hostname: storage
+    type: shared-storage
+    mode: NON_HA
+    priority: 1
+  - hostname: app
+    type: go@1
+    maxContainers: 1
+    buildFromGit: https://github.com/zeropsio/recipe-prometheus
+    enableSubdomainAccess: true
+  - hostname: prometheus
+    type: alpine@3.20
+    maxContainers: 1
+    buildFromGit: https://github.com/zeropsio/recipe-prometheus
+    enableSubdomainAccess: true
+    mount:
+      - storage    

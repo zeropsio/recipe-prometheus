@@ -1,13 +1,38 @@
 zerops:
   - setup: prometheus
     build:
-      deployFiles: [.]
+      deployFiles: 
+        - prometheus.yml
+    deploy:
+      temporaryShutdown: true
     run:
-      base: go@1
+      os: alpine
+      base: alpine@3.20
       ports:
         - port: 9090
           httpSupport: true
+      envVariables: 
+        TSDB_PATH: /mnt/storage/prometheus
       prepareCommands:
-        - sudo apk update
-        - sudo apk add prometheus
-      start: sudo /usr/bin/prometheus --config.file /etc/prometheus/prometheus.yml
+        - sudo apk update && sudo apk upgrade
+        - wget https://github.com/prometheus/prometheus/releases/download/v3.2.1/prometheus-3.2.1.linux-amd64.tar.gz
+        - tar -xvf prometheus-3.2.1.linux-amd64.tar.gz
+        - mv prometheus-3.2.1.linux-amd64 /var/www/prometheus
+        - rm prometheus-3.2.1.linux-amd64.tar.gz
+      start: bash -c 'mkdir -p $TSDB_PATH && /var/www/prometheus/prometheus --config.file /var/www/prometheus.yml --storage.tsdb.path $TSDB_PATH --log.level=debug'
+  - setup: app
+    build: 
+      os: alpine
+      base: go@latest
+      cache: true
+      buildCommands:
+        - go build -o app main.go
+      deployFiles:
+        - app
+    run:
+      os: alpine
+      base: alpine@latest
+      ports:
+        - port: 2112
+          httpSupport: true
+      start: ./app
