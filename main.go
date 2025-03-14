@@ -19,7 +19,7 @@ func main() {
 	var requestCounter uint64 = 0
 
 	http.Handle("/metrics", promhttp.Handler())
-	http.HandleFunc("/api", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		prometheusRequestCounter.Inc()
 		rc := atomic.AddUint64(&requestCounter, 1)
 		w.WriteHeader(http.StatusOK)
