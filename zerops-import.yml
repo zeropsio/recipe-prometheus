@@ -4,8 +4,7 @@ project:
     - zerops-recipe
 services:
   - hostname: storage
-    type: shared-storage
-    mode: NON_HA
+    type: local-storage:single@1
     priority: 1
   - hostname: app
     type: go@1
@@ -13,9 +12,7 @@ services:
     buildFromGit: https://github.com/zeropsio/recipe-prometheus
     enableSubdomainAccess: true
   - hostname: prometheus
-    type: alpine@3.20
+    type: alpine@3.24
     maxContainers: 1
     buildFromGit: https://github.com/zeropsio/recipe-prometheus
     enableSubdomainAccess: true
-    mount:
-      - storage    
